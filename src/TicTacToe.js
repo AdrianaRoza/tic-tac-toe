@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
-import './TicTacToe.css';
+import React, { useState } from 'react'
+import './TicTacToe.css'
 
 function TicTacToe() {
   const emptyBoard = Array(9).fill("")
+
   const [board, setBoard] = useState(emptyBoard)
+  const [currentPlayer, setCurrentPlayer] = useState("O")
+
+  const handleCellClick = (index) => {
+    if (board[index] !== "") return null
+    
+    setBoard(
+      board.map((item, itemIndex) => itemIndex === index ? currentPlayer : item)
+      )
+
+      setCurrentPlayer(currentPlayer === "X" ? "O" : "X")
+  }
+
   return (
     <main>
       <h1 className='title'>Jogo Da Velha</h1>
@@ -13,6 +26,7 @@ function TicTacToe() {
           <div 
             key={index}
             className={`cell ${item}` }
+            onClick={() => handleCellClick(index)}
           >
             {item}
           </div>
@@ -23,4 +37,4 @@ function TicTacToe() {
   );
 }
 
-export default TicTacToe;
+export default TicTacToe
